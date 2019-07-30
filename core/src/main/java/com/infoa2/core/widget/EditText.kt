@@ -61,12 +61,16 @@ class EditText : TextInputLayout, FieldValidator, ComponentActions {
     private var editText: TextInputEditText? = null
     private var editTextInputType: EditTextInputType? = null
     private var relatedLabelText: TextView? = null
-    var isRequired
-        get() = _isRequired
-        set(value) {
-            this._isRequired = value
-            setupTitleLabel()
-        }
+
+    override fun isRequired(): Boolean {
+        return _isRequired
+    }
+
+    fun setIsRequired(value: Boolean) {
+        this._isRequired = value
+        setupTitleLabel()
+    }
+
     private var _isRequired = false
     private var requiredText: String? = null
     private var isPrefix: Boolean? = null
@@ -111,52 +115,50 @@ class EditText : TextInputLayout, FieldValidator, ComponentActions {
     val isEmail: Boolean
         get() = EmailValidator.isEmailValid(editText!!.text!!.toString())
 
-    override val isValid: Boolean?
-        get() {
-            if (!isEnabled) {
-                return java.lang.Boolean.TRUE
-
-            }
-            var isValid: Boolean? = java.lang.Boolean.TRUE
-            if (editText!!.text!!
-                    .toString().isEmpty()
-            ) {
-                if (isRequired!!) {
-                    if (fieldNotFilledErrorMessageId > 0) {
-                        editText!!.error = context.getString(fieldNotFilledErrorMessageId)
-
-                    } else {
-                        editText!!.error = context.getString(R.string.sou_widgets_field_not_filled)
-
-                    }
-                    isValid = java.lang.Boolean.FALSE
-
-                } else {
-                    return java.lang.Boolean.TRUE
-
-                }
-            }
-            isValid = isValid!! && validatorInputType!!.isValid!!
-
-
-            if (this.relatedLabelText != null && relatedLabelTextColor != 0) {
-                if (!isValid) {
-                    relatedLabelText!!.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
-
-                } else {
-                    relatedLabelText!!.setTextColor(
-                        Color.parseColor(
-                            "#" + Integer.toHexString(relatedLabelTextColor).substring(
-                                2
-                            )
-                        )
-                    )
-
-                }
-            }
-            return isValid
+    override fun isValid(): Boolean {
+        if (!isEnabled) {
+            return true
 
         }
+        var isValid = true
+        if (editText!!.text!!
+                .toString().isEmpty()
+        ) {
+            if (_isRequired!!) {
+                if (fieldNotFilledErrorMessageId > 0) {
+                    editText!!.error = context.getString(fieldNotFilledErrorMessageId)
+
+                } else {
+                    editText!!.error = context.getString(R.string.sou_widgets_field_not_filled)
+
+                }
+                isValid = false
+
+            } else {
+                return true
+
+            }
+        }
+        isValid = isValid!! && validatorInputType!!.isValid!!
+
+        if (this.relatedLabelText != null && relatedLabelTextColor != 0) {
+            if (!isValid) {
+                relatedLabelText!!.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
+
+            } else {
+                relatedLabelText!!.setTextColor(
+                    Color.parseColor(
+                        "#" + Integer.toHexString(relatedLabelTextColor).substring(
+                            2
+                        )
+                    )
+                )
+
+            }
+        }
+        return isValid
+
+    }
 
     var float: Float?
         get() = TwoDecimalPointMaskTextWatcher.toFloat(editText!!.text!!.toString())
@@ -680,14 +682,14 @@ class EditText : TextInputLayout, FieldValidator, ComponentActions {
 
             }
             if (a.hasValue(R.styleable.RSEditText_sou_etIsRequired)) {
-                isRequired = a.getBoolean(R.styleable.RSEditText_sou_etIsRequired, false)
+                setIsRequired(a.getBoolean(R.styleable.RSEditText_sou_etIsRequired, false))
 
             } else {
                 val _isRequired = ConfigHelper.getBooleanConfigValue(context, "etIsRequired")
                 if (_isRequired != null) {
-                    isRequired = _isRequired
+                    setIsRequired(_isRequired)
                 } else {
-                    isRequired = java.lang.Boolean.FALSE
+                    setIsRequired(false)
                 }
             }
 
@@ -943,7 +945,7 @@ class EditText : TextInputLayout, FieldValidator, ComponentActions {
 
     private fun setupTitleLabel() {
 
-        if (isRequired!! && requiredTextType == RequiredTextType.REQUIRED || (!isRequired)!! && requiredTextType == RequiredTextType.NOTREQUIRED) {
+        if (_isRequired!! && requiredTextType == RequiredTextType.REQUIRED || !_isRequired && requiredTextType == RequiredTextType.NOTREQUIRED) {
             if (relatedLabelText != null) {
                 relatedLabelTextColor = relatedLabelText!!.currentTextColor
                 var title = if (relatedLabelText!!.text != null && !relatedLabelText!!.text.toString().isEmpty())

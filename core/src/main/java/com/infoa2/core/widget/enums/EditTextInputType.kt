@@ -146,7 +146,7 @@ enum class EditTextInputType private constructor(val inputTypeCode: Int) {
             val validatorInputType = object : ValidatorInputType {
                 override val isValid: Boolean
                     get() {
-                        if (!editText.isRequired || !editText.text!!.toString().isEmpty()) {
+                        if (!editText.isRequired() || !editText.text!!.toString().isEmpty()) {
                             editText.error = ""
                             return java.lang.Boolean.TRUE
 
@@ -245,7 +245,7 @@ enum class EditTextInputType private constructor(val inputTypeCode: Int) {
             val validatorInputType = object : ValidatorInputType {
                 override val isValid: Boolean
                     get() {
-                        if (!editText.isRequired || !editText.text!!.toString().isEmpty()) {
+                        if (!editText.isRequired() || !editText.text!!.toString().isEmpty()) {
                             editText.error = ""
                             return java.lang.Boolean.TRUE
 

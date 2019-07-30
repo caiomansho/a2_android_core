@@ -31,23 +31,8 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
     private var relatedLabelId = 0
     private var inputId: Int = 0
     private var relatedLabelTextColor: Int = 0
-    //    private int styleId;
     private var relatedLabelText: TextView? = null
-    var isRequired
-        get() = _isRequired
-        set(value) {
-            if (value) {
-                validatorInputType = SpinnerValidatorInputType()
-
-            } else {
-                validatorInputType = null
-
-            }
-            this._isRequired = value
-            setupTitleLabel()
-        }
     private var _isRequired = false
-
     private var requiredText: String? = null
     private var isPrefix: Boolean? = null
     private var defaultSelectedIndex: Int = 0
@@ -65,11 +50,6 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
     var validatorInputType: SpinnerValidatorInputType? = null
     private var requiredTextType: RequiredTextType? = null
 
-    override val isValid: Boolean?
-        get() = if (validatorInputType != null) {
-            validatorInputType!!.isValid
-        } else java.lang.Boolean.TRUE
-
     val selectedItemPosition: Int
         get() = spinner!!.selectedItemPosition
 
@@ -83,6 +63,28 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
         setupAttribute(attrs)
     }
 
+    override fun isRequired(): Boolean {
+        return _isRequired
+    }
+
+    fun setIsRequired(value: Boolean) {
+        if (value) {
+            validatorInputType = SpinnerValidatorInputType()
+
+        } else {
+            validatorInputType = null
+
+        }
+        this._isRequired = value
+        setupTitleLabel()
+    }
+
+    override fun isValid(): Boolean {
+        return if (validatorInputType != null) {
+            validatorInputType!!.isValid
+        } else true
+    }
+
     private fun setupAttribute(attrs: AttributeSet) {
         val attrsArray = intArrayOf(
             android.R.attr.id // 0
@@ -92,7 +94,7 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
         ta.recycle()
         setId(id)
         layoutParams =
-            ViewGroup.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
 
         val a = context.theme.obtainStyledAttributes(
             attrs,
@@ -133,14 +135,14 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
             }
 
             if (a.hasValue(R.styleable.RSSpinner_sou_spIsRequired)) {
-                isRequired = a.getBoolean(R.styleable.RSSpinner_sou_spIsRequired, false)
+                setIsRequired(a.getBoolean(R.styleable.RSSpinner_sou_spIsRequired, false))
 
             } else {
                 val _isRequired = ConfigHelper.getBooleanConfigValue(context, "spIsRequired")
                 if (_isRequired != null) {
-                    isRequired = _isRequired
+                    setIsRequired(_isRequired)
                 } else {
-                    isRequired = java.lang.Boolean.FALSE
+                    setIsRequired(false)
                 }
             }
 
@@ -205,7 +207,7 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
 
             }
 
-            if (isRequired!!) {
+            if (_isRequired!!) {
                 validatorInputType = SpinnerValidatorInputType()
 
             }
@@ -261,7 +263,7 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
     }
 
     private fun setupTitleLabel() {
-        if (isRequired!! && requiredTextType == RequiredTextType.REQUIRED || (!isRequired)!! && requiredTextType == RequiredTextType.NOTREQUIRED) {
+        if (_isRequired!! && requiredTextType == RequiredTextType.REQUIRED || (!_isRequired)!! && requiredTextType == RequiredTextType.NOTREQUIRED) {
             if (relatedLabelText != null) {
                 var title = if (relatedLabelText!!.text != null && !relatedLabelText!!.text.toString().isEmpty())
                     relatedLabelText!!.text.toString()
@@ -323,7 +325,7 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
         if (position < spinner!!.count) {
             spinner!!.setSelection(position)
         }
-        isValid
+        isValid()
     }
 
     fun resetState() {
@@ -434,73 +436,6 @@ class Spinner : TextInputLayout, FieldValidator, ComponentActions {
     override fun cleanComponent() {
         spinner!!.setSelection(0)
         resetState()
-
-    }
-
-    internal class SavedState : BaseSavedState {
-
-        var position: Int = 0
-        var showDropdown: Boolean = false
-
-        constructor(superState: Parcelable) : super(superState) {}
-
-        constructor(source: Parcel, loader: ClassLoader) : super(source, loader) {}
-
-        /**
-         * Constructor called from [.CREATOR]
-         */
-        constructor(`in`: Parcel) : super(`in`) {
-            position = `in`.readInt()
-            showDropdown = `in`.readByte().toInt() != 0
-        }
-
-        override fun writeToParcel(out: Parcel, flags: Int) {
-            super.writeToParcel(out, flags)
-            out.writeInt(position)
-            out.writeByte((if (showDropdown) 1 else 0).toByte())
-        }
-
-        override fun toString(): String {
-            return ("AbsSpinner.SavedState{"
-                    + Integer.toHexString(System.identityHashCode(this))
-                    + " position=" + position
-                    + " showDropdown=" + showDropdown + "}")
-        }
-
-        companion object {
-
-            val CREATOR: Parcelable.ClassLoaderCreator<SavedState> =
-                object : Parcelable.ClassLoaderCreator<SavedState> {
-                    override fun createFromParcel(source: Parcel, loader: ClassLoader): SavedState {
-                        return SavedState(source, loader)
-                    }
-
-                    override fun createFromParcel(source: Parcel): SavedState {
-                        return SavedState(source)
-                    }
-
-                    override fun newArray(size: Int): Array<SavedState> {
-                        return arrayOfNulls(size)
-                    }
-                }
-        }
-
-
-    }
-
-    override fun onSaveInstanceState(): Parcelable? {
-        val superState = super.onSaveInstanceState()
-        val ss = SavedState(superState!!)
-        ss.position = selectedItemPosition
-        return ss
-
-    }
-
-    public override fun onRestoreInstanceState(state: Parcelable) {
-        val ss = state as SavedState
-        super.onRestoreInstanceState(ss.superState)
-        checkedIndex = ss.position
-        setSelection(ss.position)
 
     }
 

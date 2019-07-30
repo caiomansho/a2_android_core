@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -47,6 +50,8 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'com.blankj:utilcode:1.24.4'
+
     implementation 'com.afollestad.material-dialogs:core:3.1.0'
     implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -54,6 +59,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0-rc01'
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'com.github.omadahealth:swipy:1.2.3@aar'
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'

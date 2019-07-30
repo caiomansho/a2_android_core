@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RSEditText">
+        <!-- Tipo de tratamento do campo  -->
+        <attr name="sou_etValidationType" format="enum">
+            <enum name="ZIPCODE" value="0" />
+            <enum name="CPF" value="1" />
+            <enum name="CNPJ" value="2" />
+            <enum name="CPFCNPJ" value="3" />
+            <enum name="MOBILE" value="4" />
+            <enum name="PERCENTAGE" value="5" />
+            <enum name="CURRENCY" value="6" />
+            <enum name="EMAIL" value="8" />
+            <enum name="DATE" value="9" />
+            <enum name="TWO_DECIMAL_POINT" value="10" />
+            <enum name="NONE" value="7" />
+
+        </attr>
+
+        <!-- Referência de mensagem customizada de erro" -->
+        <attr name="sou_etCustomErrorMessage" format="reference" />
+
+        <!-- Referência de mensagem customizada de erro" -->
+        <attr name="sou_etFieldNotFilledErrorMessage" format="reference" />
+
+        <attr name="sou_etInputId" format="reference" />
+
+        <!-- Valida se o campo é obrigatório -->
+        <attr name="sou_etIsRequired" format="boolean" />
+        <!-- Valida se o campo numérico deve ser maior que 0-->
+        <attr name="sou_etMustBeGreaterThenZero" format="boolean" />
+        <!-- Posição do texto indicativo de obrigatoriedade de campo no label, prefixo ou sufixo -->
+        <attr name="sou_etIsPrefix" format="boolean" />
+        <!--  Tipo de texto requerido -->
+        <attr name="sou_etRequiredTextType" format="enum">
+            <enum name="REQUIRED" value="0" />
+            <enum name="NOTREQUIRED" value="1" />
+        </attr>
+        <!-- Texto indicativo de obrigatoriedade de campo no label, padrão "*" -->
+        <attr name="sou_etRequiredText" format="string" />
+        <!-- Referência do TextView relacionado, caso não haja nenhum texto preenchido, será preenchido de acordo com o tipo de validador (CPF, CNPJ, CPFCNPJ e etc...) -->
+        <attr name="sou_etRelatedLabel" format="reference" />
+
+    </declare-styleable>
+
+    <declare-styleable name="RSSpinner">
+
+        <attr name="sou_spDefaultSelectedIndex" format="integer" />
+
+        <!-- Referência de mensagem customizada de erro" -->
+        <attr name="sou_spCustomErrorMessage" format="reference" />
+
+        <attr name="sou_spInputId" format="reference" />
+
+        <!-- Valida se o campo é obrigatório -->
+        <attr name="sou_spTheme" format="boolean" />
+
+        <!-- Valida se o campo é obrigatório -->
+        <attr name="sou_spIsRequired" format="boolean" />
+        <!-- Posição do texto indicativo de obrigatoriedade de campo no label, prefixo ou sufixo -->
+        <attr name="sou_spIsPrefix" format="boolean" />
+        <!-- Texto indicativo de obrigatoriedade de campo no label, padrão "*" -->
+        <attr name="sou_spRequiredText" format="string" />
+        <!-- Referência do TextView relacionado, caso não haja nenhum texto preenchido, será preenchido de acordo com o tipo de validador (CPF, CNPJ, CPFCNPJ e etc...) -->
+        <attr name="sou_spRelatedLabel" format="reference" />
+
+        <!--  Tipo de texto requerido -->
+        <attr name="sou_spRequiredTextType" format="enum">
+            <enum name="REQUIRED" value="0" />
+            <enum name="NOTREQUIRED" value="1" />
+        </attr>
+        <attr name="sou_spTextColorHint" format="reference" />
+        <attr name="sou_spTextColor" format="reference" />
+
+
+    </declare-styleable>
+
+    <declare-styleable name="RSRecyclerView">
+
+        <attr name="sou_rvInputId" format="reference" />
+
+    </declare-styleable>
+
+    <declare-styleable name="RSRadioGroup">
+
+        <attr name="sou_rgDefaultSelectedIndex" format="integer" />
+
+        <attr name="sou_rgEqualWeight" format="boolean" />
+
+        <attr name="sou_rgMinRadioWidth" format="dimension" />
+
+        <!-- Referência de mensagem customizada de erro" -->
+        <attr name="sou_rgCustomErrorMessage" format="reference" />
+
+        <attr name="sou_rgInputId" format="reference" />
+
+        <!-- Valida se o campo é obrigatório -->
+        <attr name="sou_rgIsRequired" format="boolean" />
+        <!-- Posição do texto indicativo de obrigatoriedade de campo no label, prefixo ou sufixo -->
+        <attr name="sou_rgIsPrefix" format="boolean" />
+        <!-- Texto indicativo de obrigatoriedade de campo no label, padrão "*" -->
+        <attr name="sou_rgRequiredText" format="string" />
+        <!-- Referência do TextView relacionado, caso não haja nenhum texto preenchido, será preenchido de acordo com o tipo de validador (CPF, CNPJ, CPFCNPJ e etc...) -->
+        <attr name="sou_rgRelatedLabel" format="reference" />
+
+        <attr name="sou_rgTextColor" format="color" />
+
+        <!--  Tipo de texto requerido -->
+        <attr name="sou_rgRequiredTextType" format="enum">
+            <enum name="REQUIRED" value="0" />
+            <enum name="NOTREQUIRED" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

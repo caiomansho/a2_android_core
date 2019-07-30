@@ -1,3 +1,48 @@
 <resources>
     <string name="app_name">Core Library</string>
+
+    <!--Widgets-->
+    <!--Error-->
+    <string name="sou_widgets_invalid_zip_code">CEP inválido.</string>
+    <string name="sou_widgets_invalid_cpf">Número de CPF inválido.</string>
+    <string name="sou_widgets_invalid_cnpj">Número de CNPJ inválido.</string>
+    <string name="sou_widgets_invalid_email">E-mail inválido.</string>
+    <string name="sou_widgets_invalid_cpf_cnpj">Número de CPF ou CNPJ inválido.</string>
+    <string name="sou_widgets_invalid_mobile_number">Número de celular inválido.</string>
+    <string name="sou_widgets_invalid_numeric">Valor deve ser maior que 0.</string>
+    <string name="sou_widgets_field_not_filled">Campo não preenchido</string>
+    <string name="sou_widgets_select_option">Selecione uma opção</string>
+
+    <!--Labels-->
+    <string name="sou_widgets_zip_code">CEP</string>
+    <string name="sou_widgets_cpf">CPF</string>
+    <string name="sou_widgets_cnpj">CNPJ</string>
+    <string name="sou_widgets_cpf_cnpj">CPF/CNPJ</string>
+    <string name="sou_widgets_mobile">Celular</string>
+    <string name="sou_widgets_email">E-mail</string>
+    <string name="sou_widgets_date">Data</string>
+    <string name="sou_widgets_clean">Limpar</string>
+    <string name="sou_recycler_no_row">Nenhum resultado encontrado</string>
+
+    <!--Commons-->
+    <string name="common_ok">Ok</string>
+    <string name="common_yes">Sim</string>
+    <string name="common_no">Não</string>
+    <string name="common_filter">Filtrar</string>
+    <string name="common_wait">Aguarde...</string>
+    <string name="common_back">Voltar</string>
+    <string name="common_next">Próximo</string>
+    <string name="common_finish">Concluir</string>
+    <string name="common_name">Nome</string>
+    <string name="common_cancel">Cancelar</string>
+    <string name="common_agree">Concordo</string>
+    <string name="common_edit">Editar</string>
+    <string name="common_save">Salvar</string>
+    <string name="common_send">Enviar</string>
+    <string name="common_success_updated">Atualizado com sucesso</string>
+    <string name="common_uploading_photo">Enviando foto</string>
+    <string name="common_empty"> </string>
+
+    <!--Exception-->
+
 </resources>
